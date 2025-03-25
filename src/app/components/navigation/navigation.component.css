@@ -131,3 +131,9 @@
 .hamburger.active .line:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
+
+.active-link {
+  font-weight: bold;
+  color: var(--primary-color) !important;
+  border-left: 3px solid var(--primary-color);
+}

@@ -17,14 +17,15 @@
 <!-- Menú lateral -->
 <nav class="menu-container" [class.active]="isMenuOpen">
   <div class="menu-content">
+    <app-theme-toggle></app-theme-toggle>
     <ul class="menu-list">
-      <li><a href="#" (click)="closeMenu()">Inicio</a></li>
-      <li><a href="#" (click)="closeMenu()">Servicios</a></li>
-      <li><a href="#" (click)="closeMenu()">Portafolio</a></li>
-      <li><a href="#" (click)="closeMenu()">Contacto</a></li>
+      <li><a routerLink="/dashboard" routerLinkActive="active-link" (click)="closeMenu()">Dashboard</a></li>
+      <li><a routerLink="/certifications" routerLinkActive="active-link" (click)="closeMenu()">Certifications</a></li>
+      <li><a routerLink="/contact" routerLinkActive="active-link" (click)="closeMenu()">Contact</a></li>
+      <li><a routerLink="/proyects" routerLinkActive="active-link" (click)="closeMenu()">Proyects</a></li>
     </ul>
     <button (click)="logout()" class="btn btn-danger">
-      <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+      <i class="fas fa-sign-out-alt"></i> Log Out
     </button>
   </div>
 </nav>

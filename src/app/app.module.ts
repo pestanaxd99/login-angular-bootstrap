@@ -18,7 +18,11 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './services/guards/auth.guard';
 import { NotLogguedComponent } from './components/not-loggued/not-loggued.component';
-//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DarklightThemeComponent } from './components/darklight-theme/darklight-theme.component';
+import { CertificationsComponent } from './components/certifications/certifications.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { ProyectComponent } from './components/proyect/proyect.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { NotLogguedComponent } from './components/not-loggued/not-loggued.compon
     DashboardComponent,
     NavigationComponent,
     FooterComponent,
-    NotLogguedComponent
+    NotLogguedComponent,
+    DarklightThemeComponent,
+    CertificationsComponent,
+    ContactComponent,
+    ProyectComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +49,7 @@ import { NotLogguedComponent } from './components/not-loggued/not-loggued.compon
     FormsModule,
     AngularFirestoreModule,
     BrowserAnimationsModule
-    //NgbModule
+    
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
