@@ -1,28 +1,98 @@
 <div class="mt-5 d-flex justify-content-center">
-    <form class="form-signin mx-auto">
-        <div class="text-center mb-4">
-            <img class="mb-4" src="https://i.pinimg.com/originals/52/94/61/5294613079faa309389e8157dc49b4db.png" alt=""
-                width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Login example</h1>
-        </div>
+  <form class="form-signin mx-auto" [formGroup]="userForm" (ngSubmit)="login()">
+    <div class="text-center mb-4">
+      <img
+        class="mb-4"
+        src="https://i.pinimg.com/originals/52/94/61/5294613079faa309389e8157dc49b4db.png"
+        alt=""
+        width="72"
+        height="72"
+      />
+      <h1 class="h3 mb-3 font-weight-normal">Login example</h1>
+    </div>
 
-        <div class="form-label-group">
-            <input type="username" id="inputUser" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputEmail">Username</label>
-        </div>
+    <!-- Campo de usuario (correo electrónico) -->
+    <div class="form-label-group">
+      <input
+        type="email"
+        id="inputUser"
+        class="form-control"
+        placeholder="Username"
+        formControlName="username"
+        required
+        autofocus
+      />
+      <label for="inputUser">Username (Email)</label>
+      <div
+        *ngIf="
+          userForm.get('username')?.invalid && 
+          userForm.get('username')?.touched
+        "
+        class="text-danger"
+      >
+        <small *ngIf="userForm.get('username')?.errors?.['required']">
+          {{ getValidationMessage('username', 'required') }}
+        </small>
+        <small *ngIf="userForm.get('username')?.errors?.['email']">
+          {{ getValidationMessage('username', 'email') }}
+        </small>
+      </div>
+    </div>
 
-        <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <label for="inputPassword">Password</label>
-        </div>
+    <!-- Campo de contraseña -->
+    <div class="form-label-group">
+      <input
+        type="password"
+        id="inputPassword"
+        class="form-control"
+        placeholder="Password"
+        formControlName="password"
+        required
+      />
+      <label for="inputPassword">Password</label>
+      <div
+        *ngIf="
+          userForm.get('password')?.invalid && 
+          userForm.get('password')?.touched
+        "
+        class="text-danger"
+      >
+        <small *ngIf="userForm.get('password')?.errors?.['required']">
+          {{ getValidationMessage('password', 'required') }}
+        </small>
+      </div>
+    </div>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me</label>
-        </div>
-        <button class="btn btn-lg btn-success btn-block" type="submit">Sign in</button>
-        <p class="mt-2">You are not registered? <a class="breadcrumb-item"><a href="register">Register here</a></a></p>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2022</p>
-    </form>
+    <!-- Botón de inicio de sesión -->
+    <button
+      class="btn btn-lg btn-success btn-block"
+      type="submit"
+      [disabled]="userForm.invalid || isLoading"
+    >
+      <span *ngIf="!isLoading">Sign in</span>
+      <span *ngIf="isLoading">
+        <i class="fas fa-spinner fa-spin"></i> Loading...
+      </span>
+    </button>
+
+    <!-- Enlace para registro -->
+    <p class="mt-2">
+      You are not registered?
+      <a class="breadcrumb-item" routerLink="/register">Register here</a>
+    </p>
+
+    <!-- Mensaje de error general -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      <i class="fas fa-exclamation-circle me-2"></i>
+      {{ errorMessage }}
+      <div *ngIf="errorMessage === 'Invalid email or password. Please check your credentials.'" 
+           class="mt-2 small">
+        <a routerLink="/forgot-password">Forgot your password?</a>
+      </div>
+    </div>
+
+    <!-- Texto de derechos de autor -->
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2022</p>
+  </form>
 </div>
 <router-outlet></router-outlet>

@@ -1,44 +1,107 @@
 <div class="mt-5 d-flex justify-content-center">
-    <form class="form-signin mx-auto">
-        <div class="text-center mb-4">
-            <img class="mb-4" src="https://i.pinimg.com/originals/52/94/61/5294613079faa309389e8157dc49b4db.png" alt=""
-                width="72" height="72">
-            <h1 class="h3 mb-3 font-weight-normal">Register example</h1>
-        </div>
-
-        <div class="form-label-group">
-            <input type="firstName" id="inputFirstName" class="form-control" placeholder="Type last name" required autofocus>
-            <label for="inputFirstName">First Name</label>
-        </div>
-        <div class="form-label-group">
-            <input type="lastName" id="inputLastName" class="form-control" placeholder="Type last name" required>
-            <label for="inputLastName">Last Name</label>
-        </div>
-        <div class="form-label-group">
-            <input type="username" id="inputUser" class="form-control" placeholder="Type username" required>
-            <label for="inputEmail">Username</label>
-        </div>
-        <div class="form-label-group">
-            <input type="email" id="inputEmail" class="form-control" placeholder="Type e-mail" required>
-            <label for="inputEmail">Email</label>
-        </div>
-        <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <label for="inputPassword">Password</label>
-        </div>
-        <div class="form-label-group">
-            <input type="password" id="inputConfirmPassword" class="form-control" placeholder="ConfirmPassword" required>
-            <label for="inputConfirmPassword">Confirm Password</label>
-        </div>
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="acceptTerm"> You accept our terms and conditions </label>
-        </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-        <p class="mt-2">Are you registered? <a class="breadcrumb-item"><a href="login">Login here</a></a></p>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2022</p>
+    <form class="form-signin mx-auto" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="https://i.pinimg.com/originals/52/94/61/5294613079faa309389e8157dc49b4db.png" alt=""
+             width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Register example</h1>
+      </div>
+  
+      <!-- Mensaje de error -->
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+  
+      <!-- Nombre -->
+      <div class="form-label-group">
+        <input type="text" id="inputFirstName" class="form-control" formControlName="firstName"
+               placeholder="First Name" required autofocus>
+        <label for="inputFirstName">First Name</label>
+        <small *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+               class="text-danger">
+          <span *ngIf="registerForm.get('firstName')?.errors?.['required']">Este campo es requerido</span>
+          <span *ngIf="registerForm.get('firstName')?.errors?.['minlength']">Mínimo 2 caracteres</span>
+        </small>
+      </div>
+  
+      <!-- Apellido -->
+      <div class="form-label-group">
+        <input type="text" id="inputLastName" class="form-control" formControlName="lastName"
+               placeholder="Last Name" required>
+        <label for="inputLastName">Last Name</label>
+        <small *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched"
+               class="text-danger">
+          <span *ngIf="registerForm.get('lastName')?.errors?.['required']">Este campo es requerido</span>
+          <span *ngIf="registerForm.get('lastName')?.errors?.['minlength']">Mínimo 2 caracteres</span>
+        </small>
+      </div>
+  
+      <!-- Nombre de usuario -->
+      <div class="form-label-group">
+        <input type="text" id="inputUser" class="form-control" formControlName="username"
+               placeholder="Username" required>
+        <label for="inputUser">Username</label>
+        <small *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+               class="text-danger">
+          <span *ngIf="registerForm.get('username')?.errors?.['required']">Este campo es requerido</span>
+          <span *ngIf="registerForm.get('username')?.errors?.['minlength']">Mínimo 4 caracteres</span>
+          <span *ngIf="registerForm.get('username')?.errors?.['usernameTaken']">Este nombre de usuario ya existe</span>
+        </small>
+      </div>
+  
+      <!-- Email -->
+      <div class="form-label-group">
+        <input type="email" id="inputEmail" class="form-control" formControlName="email"
+               placeholder="Email" required>
+        <label for="inputEmail">Email</label>
+        <small *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+               class="text-danger">
+          <span *ngIf="registerForm.get('email')?.errors?.['required']">Este campo es requerido</span>
+          <span *ngIf="registerForm.get('email')?.errors?.['email']">Ingresa un email válido</span>
+        </small>
+      </div>
+  
+      <!-- Contraseña -->
+      <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" formControlName="password"
+               placeholder="Password" required>
+        <label for="inputPassword">Password</label>
+        <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+               class="text-danger">
+          <span *ngIf="registerForm.get('password')?.errors?.['required']">Este campo es requerido</span>
+          <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</span>
+        </small>
+      </div>
+  
+      <!-- Confirmar contraseña -->
+      <div class="form-label-group">
+        <input type="password" id="inputConfirmPassword" class="form-control" formControlName="confirmPassword"
+               placeholder="Confirm Password" required>
+        <label for="inputConfirmPassword">Confirm Password</label>
+        <small *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']"
+               class="text-danger">
+          Las contraseñas no coinciden
+        </small>
+      </div>
+  
+      <!-- Términos y condiciones -->
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" formControlName="acceptTerms"> You accept our terms and conditions
+        </label>
+        <small *ngIf="registerForm.get('acceptTerms')?.invalid && registerForm.get('acceptTerms')?.touched"
+               class="text-danger d-block">
+          Debes aceptar los términos y condiciones
+        </small>
+      </div>
+  
+      <!-- Botón de registro -->
+      <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="registerForm.invalid || loading">
+        <span *ngIf="!loading">Sign up</span>
+        <span *ngIf="loading">Processing...</span>
+      </button>
+  
+      <p class="mt-2">Are you registered? <a class="breadcrumb-item" routerLink="/login">Login here</a></p>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2019-2022</p>
     </form>
-</div>
-<router-outlet></router-outlet>
+  </div>
+  <router-outlet></router-outlet>
