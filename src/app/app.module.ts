@@ -10,13 +10,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './services/guards/auth.guard';
-import { NotLogguedComponent } from './components/not-loggued/not-loggued.component'
+import { NotLogguedComponent } from './components/not-loggued/not-loggued.component';
+//import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { NotLogguedComponent } from './components/not-loggued/not-loggued.compon
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FormsModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    BrowserAnimationsModule
+    //NgbModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
